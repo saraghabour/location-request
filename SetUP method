@@ -1,0 +1,41 @@
+   private void setUpMap() {
+        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker").snippet("Snippet"));
+
+        //Enable My Location layer of google map
+        mMap.setMyLocationEnabled(true);
+
+        //Get LocationManager object from system services Location_services
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        //create criteria object to retieve provider
+        Criteria criteria = new Criteria();
+
+        //get the name of the best provider
+        String provider = locationManager.getBestProvider(criteria,true);
+
+        //get current location
+        Location location = locationManager.getLastKnownLocation(provider);
+
+        //set map type
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        //Get latitude of the current location
+        double latitude = 15;
+
+        //Get longitude of the current location
+        double longitude = 40;
+
+        //create latlng object for the current location
+        LatLng latLng = new LatLng(latitude,longitude);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latLng,12);
+
+
+        //show the current location in google map
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        //Zoom in the google map
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+        mMap.addMarker(new MarkerOptions().
+                position(new LatLng(latitude, longitude)).title("you are here").snippet("Consider yourself located"));
+
+    }
